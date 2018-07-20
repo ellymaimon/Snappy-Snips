@@ -26,9 +26,14 @@ namespace HairSalon.Controllers
         }
 
         [HttpPost("/stylists/create")]
-        public ActionResult Create(Stylist stylist)
+        public ActionResult Create(Stylist stylist, List<int> SpecialtyIds)
         {
             db.Stylists.Add(stylist);
+            foreach (int specialtyId in SpecialtyIds)
+            {
+                StylistSpecialty newStylistSpecialty = new StylistSpecialty(specialtyId, stylist.StylistId);
+                db.StylistSpecialties.Add(newStylistSpecialty);
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -37,14 +42,23 @@ namespace HairSalon.Controllers
         public ActionResult Details(int id)
         {
             Stylist stylist = db.Stylists.FirstOrDefault(stylists => stylists.StylistId == id);
-            var entryList = db.StylistClients.Where(entry => entry.StylistId == id).ToList();
+            var clientEntries = db.StylistClients.Where(entry => entry.StylistId == id).ToList();
             List<Client> clientList = new List<Client>();
-            foreach (var client in entryList)
+            foreach (var client in clientEntries)
             {
                 int clientId = client.ClientId;
                 clientList.Add(db.Clients.FirstOrDefault(record => record.ClientId == clientId));
             }
             ViewBag.ClientList = clientList;
+
+            var specialtyEntries = db.StylistSpecialties.Where(entry => entry.StylistId == id).ToList();
+            List<Specialty> specialtyList = new List<Specialty>();
+            foreach (var specialty in specialtyEntries)
+            {
+                int specialtyId = specialty.SpecialtyId;
+                specialtyList.Add(db.Specialties.FirstOrDefault(record => record.SpecialtyId == specialtyId));
+            }       
+            ViewBag.SpecialtyList = specialtyList;     
             return View(stylist);
         }
 
