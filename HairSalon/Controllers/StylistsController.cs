@@ -3,6 +3,7 @@ using HairSalon.Models;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace HairSalon.Controllers
 {
@@ -82,6 +83,78 @@ namespace HairSalon.Controllers
                 db.Stylists.Remove(entry);
                 db.SaveChanges();
             }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("/stylists/{id}/edit")]
+        public ActionResult Edit(int id)
+        {
+            Stylist stylist = db.Stylists.FirstOrDefault(stylists => stylists.StylistId == id);
+            ViewBag.SpecialtyIds = db.Specialties.ToList()
+                .Select(specialty => new SelectListItem
+                {
+                    Value = specialty.SpecialtyId.ToString(),
+                    Text = specialty.Description
+                })
+                .ToList();
+
+            ViewBag.ClientIds = db.Clients.ToList()
+                .Select(client => new SelectListItem
+                {
+                    Value = client.ClientId.ToString(),
+                    Text = client.ClientFirstName + " " + client.ClientLastName
+                })
+                .ToList();
+            return View(stylist);
+        }
+
+        [HttpPost("/stylists/{id}/edit")]
+        public ActionResult Edit(Stylist stylist, List<int> SpecialtyIds, List<int> ClientIds)
+        {
+            db.Entry(stylist).State = EntityState.Modified;
+            var stylistMatchesInJoinTable = db.StylistSpecialties.Where(entry => entry.StylistId == stylist.StylistId).ToList();
+
+            foreach (var specialty in stylistMatchesInJoinTable)
+            {
+                int specialtyId = specialty.SpecialtyId;
+                var joinEntry = db.StylistSpecialties
+                                    .Where(entry => entry.SpecialtyId == specialtyId)
+                                    .Where(entry => entry.StylistId == stylist.StylistId);
+                foreach (var entry in joinEntry)
+                {
+                    db.StylistSpecialties.Remove(entry);
+                }
+            }
+
+            foreach (var id in SpecialtyIds)
+            {
+                Specialty specialty = db.Specialties.FirstOrDefault(otherEntry => otherEntry.SpecialtyId == id);
+                StylistSpecialty newStylistSpecialty = new StylistSpecialty(specialty.SpecialtyId, stylist.StylistId);
+                db.StylistSpecialties.Add(newStylistSpecialty);
+            }
+
+            var stylistMatchesClients = db.StylistClients.Where(entry => entry.StylistId == stylist.StylistId).ToList();
+
+            foreach (var client in stylistMatchesClients)
+            {
+                int clientId = client.ClientId;
+                var joinEntry = db.StylistClients
+                                    .Where(entry => entry.ClientId == clientId)
+                                    .Where(entry => entry.StylistId == stylist.StylistId);
+                foreach (var entry in joinEntry)
+                {
+                    db.StylistClients.Remove(entry);
+                }
+            }
+
+            foreach (var id in ClientIds)
+            {
+                Client client = db.Clients.FirstOrDefault(newEntry => newEntry.ClientId == id);
+                StylistClient newStylistClient = new StylistClient(client.ClientId, stylist.StylistId);
+                db.StylistClients.Add(newStylistClient);
+            }
+
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }
