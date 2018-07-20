@@ -25,7 +25,7 @@
     <ul>
         @foreach (var specialty in ViewBag.SpecialtyList)
         {
-            <li><a href="/specialty/@specialty.SpecialtyId">@specialty.Description</a></li>
+            <li><a href="/specialties/@specialty.SpecialtyId">@specialty.Description</a></li>
         }
     </ul>
     <p>@Html.ActionLink("Back to Stylist List", "Index")</p>
