@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using HairSalon.Models;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HairSalon.Controllers
 {
@@ -13,7 +14,16 @@ namespace HairSalon.Controllers
         public ActionResult Index() => View(db.Stylists.ToList());
 
         [HttpGet("/stylists/create")]
-        public ActionResult Create() => View();
+        public ActionResult Create() 
+        {
+           ViewBag.SpecialtyIds = db.Specialties.ToList()
+                .Select(specialty => new SelectListItem {
+                    Value = specialty.SpecialtyId.ToString(),
+                    Text = specialty.Description
+                })
+                .ToList();
+            return View();
+        }
 
         [HttpPost("/stylists/create")]
         public ActionResult Create(Stylist stylist)
