@@ -28,5 +28,6 @@
             <li><a href="/specialties/@specialty.SpecialtyId">@specialty.Description</a></li>
         }
     </ul>
+    <p>@Html.ActionLink("Edit Stylist", "Edit", new { id = @Model.StylistId })</p>
     <p>@Html.ActionLink("Back to Stylist List", "Index")</p>
 </div>
