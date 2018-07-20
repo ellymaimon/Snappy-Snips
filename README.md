@@ -1,18 +1,31 @@
-# Project Name Here
+# Snappy Snips Salon Management Tool
 
-#### Epicodus C# exercise, date
+#### Epicodus C# Code Review, July 20, 2018
 
-#### By Your Name Here
+#### By Elly Maimon
 
 ## Description
 
-Add a description here
+Snappy Snipts Salon Management Tool is a .NET web application that allows a user to add, update, and delete stylists, clients, and specialties and view or edit those categories.
 
-## Specs
+## How to Recreate Database
 
-| Behavior | Input | Output |
-|----------|-------|--------|
-| Behavior | input | output |
+* To recreate the main database, enter the following commands into terminal:
+    * > mysql -uroot -proot;
+    * > CREATE DATABASE eliran_maimon;
+    * > USE eliran_maimon;
+    * > CREATE TABLE Stylists (StylistId serial PRIMARY KEY, StylistFirstName VARCHAR(255), StylistLastName VARCHAR(255)));
+    * > CREATE TABLE Clients (ClientsId serial PRIMARY KEY, ClientFirstName VARCHAR(255), ClientLastName VARCHAR(255));
+    * > CREATE TABLE StylistClients (StylistClientId serial PRIMARY KEY, ClientId INT, StylistID INT);
+    * > CREATE TABLE StylistSpecialties (StyliesSpecialtyId serial PRIMARY KEY, SpecialtyId INT, StylistID INT);
+* To recreate the test database, enter the following commands into terminal:
+    * > mysql -uroot -proot;
+    * > CREATE DATABASE eliran_maimon_test;
+    * > USE eliran_maimon_test;
+    * > CREATE TABLE Stylists (StylistId serial PRIMARY KEY, StylistFirstName VARCHAR(255), StylistLastName VARCHAR(255)));
+    * > CREATE TABLE Clients (ClientsId serial PRIMARY KEY, ClientFirstName VARCHAR(255), ClientLastName VARCHAR(255));
+    * > CREATE TABLE StylistClients (StylistClientId serial PRIMARY KEY, ClientId INT, StylistID INT);
+    * > CREATE TABLE StylistSpecialties (StyliesSpecialtyId serial PRIMARY KEY, SpecialtyId INT, StylistID INT);
 
 ## Setup on OSX
 
@@ -36,18 +49,18 @@ Add a description here
 ## Technologies Used
 
 * .Net Core 1.1.4
+* Entity Framework Core 1.1.2
 * MAMP 4.5
 * MySQL
-* Bootstrap 3.3.7
-* JavaScript
+* Bootstrap 4
 * jQuery 3.3.1
 
 ## Links
 
-* Add links here
+* Repository: https://github.com/ellymaimon/Snappy-Snips
 
 ## License
 
 This software is licensed under the MIT license.
 
-Copyright (c) 2018 **Your Name Here**
+Copyright (c) 2018 **Elly Maimon**
