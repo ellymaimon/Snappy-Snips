@@ -9,15 +9,17 @@ namespace HairSalon.Controllers
         private HairSalonContext db = new HairSalonContext();
 
         [HttpGet("/stylists")]
-        public ActionResult Index()
-        {
-            return View(db.Stylists.ToList());
-        }
+        public ActionResult Index() => View(db.Stylists.ToList());
 
         [HttpGet("/stylists/create")]
-        public ActionResult Create()
+        public ActionResult Create() => View();
+
+        [HttpPost("/stylists/create")]
+        public ActionResult Create(Stylist stylist)
         {
-            return View();
+            db.Stylists.Add(stylist);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

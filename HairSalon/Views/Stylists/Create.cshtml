@@ -17,6 +17,10 @@
                 <label asp-for="StylistLastName"><h4>Last Name</h4></label>
                 @Html.TextBoxFor(model => model.StylistLastName, new { @class = "form-control" })
             </div>
+
             <input type="submit" value="Create Stylist" class="btn btn-success">
         }
+         
+        <p>@Html.ActionLink("Back to Stylists", "Index")</p>
+        
 </div>

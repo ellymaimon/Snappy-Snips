@@ -5,12 +5,13 @@
 }
 
 <div class="container">
-    <h2>Stylists</h2>
-    @Html.ActionLink("Add Stylist", "create", "stylists", null)
+    <h2>Stylists Employed</h2>
+    @Html.ActionLink("Add Stylist", "create", "stylists", null) |
+    @Html.ActionLink("Delete All Stylists", "deleteall", "stylists", null)
+    <hr>
     @foreach(var stylist in Model)
     {
-        @Html.DisplayFor(modelItem => stylist.StylistFirstName) @Html.DisplayFor(modelItem => stylist.StylistLastName)
-        <br>
+        <h2>@Html.DisplayFor(modelItem => stylist.StylistFirstName) @Html.DisplayFor(modelItem => stylist.StylistLastName)</h2>
         @Html.ActionLink("Details", "Details", new { id = stylist.StylistId })
         <br>
         @Html.ActionLink("Edit", "Edit", new { id = stylist.StylistId })
@@ -19,5 +20,6 @@
             {
                 <input type="submit" value="Delete"/>
             }
+        <hr>
     }
 </div>
