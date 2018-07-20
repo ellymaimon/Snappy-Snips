@@ -26,7 +26,7 @@ namespace HairSalon.Controllers
         [HttpGet("/stylists/{id}")]
         public ActionResult Details(int id)
         {
-            Stylist author = db.Stylists.FirstOrDefault(stylists => stylists.StylistId == id);
+            Stylist stylist = db.Stylists.FirstOrDefault(stylists => stylists.StylistId == id);
             var entryList = db.StylistClients.Where(entry => entry.StylistId == id).ToList();
             List<Client> clientList = new List<Client>();
             foreach (var client in entryList)
@@ -34,8 +34,19 @@ namespace HairSalon.Controllers
                 int clientId = client.ClientId;
                 clientList.Add(db.Clients.FirstOrDefault(record => record.ClientId == clientId));
             }
-            ViewBag.BookList = clientList;
-            return View(author);
+            ViewBag.ClientList = clientList;
+            return View(stylist);
+        }
+
+        [HttpPost("stylists/{id}/delete")]
+        public ActionResult Delete(int id)
+        {
+            Stylist stylist = db.Stylists.FirstOrDefault(stylists => stylists.StylistId == id);
+            StylistClient joinEntry = db.StylistClients.FirstOrDefault(entry => entry.StylistId == id);
+            db.Stylists.Remove(stylist);
+            if (joinEntry != null) db.StylistClients.Remove(joinEntry);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

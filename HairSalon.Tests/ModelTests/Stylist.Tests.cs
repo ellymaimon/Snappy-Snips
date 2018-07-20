@@ -8,6 +8,6 @@ namespace HairSalon.Tests
     [TestClass]
     public class StylistTest
     {
-
+        
     }
 }

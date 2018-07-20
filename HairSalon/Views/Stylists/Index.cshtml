@@ -11,7 +11,7 @@
     <hr>
     @foreach(var stylist in Model)
     {
-        <h2>@Html.DisplayFor(modelItem => stylist.StylistFirstName) @Html.DisplayFor(modelItem => stylist.StylistLastName)</h2>
+        <h2>@Html.DisplayFor(model => stylist.StylistFirstName) @Html.DisplayFor(model => stylist.StylistLastName)</h2>
         @Html.ActionLink("Details", "Details", new { id = stylist.StylistId })
         <br>
         @Html.ActionLink("Edit", "Edit", new { id = stylist.StylistId })
