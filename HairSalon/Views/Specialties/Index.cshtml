@@ -1,0 +1,22 @@
+@model IEnumerable<HairSalon.Models.Specialty>
+
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+    <h2>Specialties Offered</h2>
+    @Html.ActionLink("Add Specialty", "create", "specialties", null)
+    <hr>
+    @foreach(var specialty in Model)
+    {
+        <h2>@Html.DisplayFor(model => specialty.Description)</h2>
+        @Html.ActionLink("Associated Stylists", "Details", new { id = specialty.SpecialtyId })
+        <br>
+            @using (Html.BeginForm("delete", "specialties", new { id = specialty.SpecialtyId }, FormMethod.Post))
+            {
+                <input class="btn btn-danger" type="submit" value="Delete"/>
+            }
+        <hr>
+    }
+</div>
