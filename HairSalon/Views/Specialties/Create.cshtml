@@ -1,0 +1,20 @@
+@using HairSalon.Models
+@model HairSalon.Models.Specialty
+
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+    <h2>Add a new Specialty</h2>
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                <label asp-for="Description"><h4>Specialty:</h4></label>
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+            </div>
+            <input type="submit" value="Create Stylist" class="btn btn-success">
+        }         
+        <p>@Html.ActionLink("Back to Stylists", "Index")</p>
+        
+</div>
