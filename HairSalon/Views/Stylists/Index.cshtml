@@ -1,0 +1,23 @@
+@model IEnumerable<HairSalon.Models.Stylist>
+
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+    <h2>Stylists</h2>
+    @Html.ActionLink("Add Stylist", "create", "stylists", null)
+    @foreach(var stylist in Model)
+    {
+        @Html.DisplayFor(modelItem => stylist.StylistFirstName) @Html.DisplayFor(modelItem => stylist.StylistLastName)
+        <br>
+        @Html.ActionLink("Details", "Details", new { id = stylist.StylistId })
+        <br>
+        @Html.ActionLink("Edit", "Edit", new { id = stylist.StylistId })
+        <br>
+            @using (Html.BeginForm("delete", "stylists", new { id = stylist.StylistId }, FormMethod.Post))
+            {
+                <input type="submit" value="Delete"/>
+            }
+    }
+</div>

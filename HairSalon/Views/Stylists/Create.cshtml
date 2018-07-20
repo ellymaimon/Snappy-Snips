@@ -1,0 +1,22 @@
+@using HairSalon.Models
+@model HairSalon.Models.Stylist
+
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+    <h2>Add a new Stylist</h2>
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                <label asp-for="StylistFirstName"><h4>First Name</h4></label>
+                @Html.TextBoxFor(model => model.StylistFirstName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label asp-for="StylistLastName"><h4>Last Name</h4></label>
+                @Html.TextBoxFor(model => model.StylistLastName, new { @class = "form-control" })
+            </div>
+            <input type="submit" value="Create Stylist" class="btn btn-success">
+        }
+</div>
