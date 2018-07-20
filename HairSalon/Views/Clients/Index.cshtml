@@ -1,0 +1,25 @@
+@model IEnumerable<HairSalon.Models.Client>
+
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+    <h2>Clients</h2>
+    @Html.ActionLink("Add a Client", "create", "clients", null) |
+    @Html.ActionLink("Delete All Clients", "deleteall", "clients", null)
+    <hr>
+    @foreach(var client in Model)
+    {
+        <h2>@Html.DisplayFor(model => client.ClientFirstName) @Html.DisplayFor(model => client.ClientLastName)</h2>
+        @Html.ActionLink("Details", "details", new { id = client.ClientId })
+        <br>
+        @Html.ActionLink("Edit", "Edit", new { id = client.ClientId })
+        <br>
+            @using (Html.BeginForm("delete", "clients", new { id = client.ClientId }, FormMethod.Post))
+            {
+                <input type="submit" value="Delete"/>
+            }
+        <hr>
+    }
+</div>
