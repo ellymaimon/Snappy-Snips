@@ -14,14 +14,15 @@ namespace HairSalon.Controllers
         public ActionResult Index() => View(db.Stylists.ToList());
 
         [HttpGet("/stylists/create")]
-        public ActionResult Create() 
+        public ActionResult Create()
         {
-           ViewBag.SpecialtyIds = db.Specialties.ToList()
-                .Select(specialty => new SelectListItem {
-                    Value = specialty.SpecialtyId.ToString(),
-                    Text = specialty.Description
-                })
-                .ToList();
+            ViewBag.SpecialtyIds = db.Specialties.ToList()
+                 .Select(specialty => new SelectListItem
+                 {
+                     Value = specialty.SpecialtyId.ToString(),
+                     Text = specialty.Description
+                 })
+                 .ToList();
             return View();
         }
 
@@ -57,8 +58,8 @@ namespace HairSalon.Controllers
             {
                 int specialtyId = specialty.SpecialtyId;
                 specialtyList.Add(db.Specialties.FirstOrDefault(record => record.SpecialtyId == specialtyId));
-            }       
-            ViewBag.SpecialtyList = specialtyList;     
+            }
+            ViewBag.SpecialtyList = specialtyList;
             return View(stylist);
         }
 
@@ -70,6 +71,17 @@ namespace HairSalon.Controllers
             db.Stylists.Remove(stylist);
             if (joinEntry != null) db.StylistClients.Remove(joinEntry);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost("stylists/delete")]
+        public ActionResult DeleteAll()
+        {
+            foreach (var entry in db.Stylists)
+            {
+                db.Stylists.Remove(entry);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
     }
