@@ -1,0 +1,23 @@
+@model HairSalon.Models.Specialty
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+    <h2>@Html.DisplayFor(entry => entry.Description)</h2>
+    @if (ViewBag.StylistList.Count == 0)
+    {
+        <h4>There are no stylists specializing in @Model.Description currently.</h4>
+    }
+    else{
+    <h4>Stylists specializing in @Model.Description:</h4>
+        <ul>
+            @foreach (var stylist in ViewBag.StylistList)
+            {
+                <li><a href="/stylists/@stylist.StylistId">@stylist.StylistFirstName @stylist.StylistLastName</a></li>
+            }
+        </ul>
+    }
+    <hr />
+    <p>@Html.ActionLink("Back to Specialties", "Index")</p>
+</div>
