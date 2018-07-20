@@ -37,5 +37,25 @@ namespace HairSalon.Controllers
             ViewBag.StylistList = stylistList;
             return View(specialty);
         }
+
+        [HttpPost("specialties/{id}/delete")]
+        public ActionResult Delete(int id)
+        {
+            Specialty specialty = db.Specialties.FirstOrDefault(specialties => specialties.SpecialtyId == id);
+            db.Specialties.Remove(specialty);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost("specialties/delete")]
+        public ActionResult DeleteAll()
+        {
+            foreach (var entry in db.Specialties)
+            {
+                db.Specialties.Remove(entry);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
