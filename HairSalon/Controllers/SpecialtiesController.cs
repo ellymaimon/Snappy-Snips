@@ -22,5 +22,20 @@ namespace HairSalon.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet("/specialties/{id}")]
+        public ActionResult Details(int id)
+        {
+            Specialty specialty = db.Specialties.FirstOrDefault(specialties => specialties.SpecialtyId == id);
+            var entryList = db.StylistSpecialties.Where(entry => entry.SpecialtyId == id).ToList();
+            List<Stylist> stylistList = new List<Stylist>();
+            foreach (var stylist in entryList)
+            {
+                int stylistId = stylist.StylistId;
+                stylistList.Add(db.Stylists.FirstOrDefault(record => record.StylistId == stylistId));
+            }
+            ViewBag.StylistList = stylistList;
+            return View(specialty);
+        }
     }
 }
