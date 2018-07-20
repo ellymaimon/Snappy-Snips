@@ -1,32 +1,32 @@
+using HairSalon.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HairSalon
 {
-    // update DbNameHere with correct db name
-    public static class DBConfiguration
-    {
-        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=DbNameHere;";
-    }
-
     public class Startup
     {
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddEnvironmentVariables();
+                .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public IConfigurationRoot Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddEntityFramework()
+                .AddDbContext<HairSalonContext>(options =>
+                    options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
         }
 
         public void Configure(IApplicationBuilder app)
