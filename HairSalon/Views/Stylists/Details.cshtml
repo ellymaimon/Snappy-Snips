@@ -5,6 +5,11 @@
 
 <div class="container">
     <h2>@Html.DisplayFor(model => model.StylistFirstName) @Html.DisplayFor(model => model.StylistLastName)</h2>
+     @if (ViewBag.ClientList.Count == 0)
+    {
+        <h4>Stylist currently has no clients.</h4>
+    }
+    else{
     <h4>Clients:</h4>
     <ul>
         @foreach (var client in ViewBag.ClientList)
@@ -14,5 +19,6 @@
     </ul>
 
     <hr />
+    }
     <p>@Html.ActionLink("Back to Stylist List", "Index")</p>
 </div>
