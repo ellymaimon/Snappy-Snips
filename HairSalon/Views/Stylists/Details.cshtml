@@ -9,7 +9,7 @@
     <ul>
         @foreach (var client in ViewBag.ClientList)
         {
-            <li><a href="/client/@client.ClientId">@client.ClientFirstName @client.ClientLastName</a></li>
+            <li><a href="/clients/@client.ClientId">@client.ClientFirstName @client.ClientLastName</a></li>
         }
     </ul>
 

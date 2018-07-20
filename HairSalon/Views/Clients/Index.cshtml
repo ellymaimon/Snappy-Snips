@@ -6,8 +6,7 @@
 
 <div class="container">
     <h2>Clients</h2>
-    @Html.ActionLink("Add a Client", "create", "clients", null) |
-    @Html.ActionLink("Delete All Clients", "deleteall", "clients", null)
+    @Html.ActionLink("Add a Client", "create", "clients", null)
     <hr>
     @foreach(var client in Model)
     {

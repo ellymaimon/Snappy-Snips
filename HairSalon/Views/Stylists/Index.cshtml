@@ -6,8 +6,7 @@
 
 <div class="container">
     <h2>Stylists Employed</h2>
-    @Html.ActionLink("Add Stylist", "create", "stylists", null) |
-    @Html.ActionLink("Delete All Stylists", "deleteall", "stylists", null)
+    @Html.ActionLink("Add Stylist", "create", "stylists", null)
     <hr>
     @foreach(var stylist in Model)
     {
@@ -18,7 +17,7 @@
         <br>
             @using (Html.BeginForm("delete", "stylists", new { id = stylist.StylistId }, FormMethod.Post))
             {
-                <input type="submit" value="Delete"/>
+                <input class="btn btn-danger" type="submit" value="Delete"/>
             }
         <hr>
     }
