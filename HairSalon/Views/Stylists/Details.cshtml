@@ -8,6 +8,7 @@
      @if (ViewBag.ClientList.Count == 0)
     {
         <h4>Stylist currently has no clients.</h4>
+        <hr>
     }
     else{
     <h4>Clients:</h4>
@@ -18,7 +19,14 @@
         }
     </ul>
 
-    <hr />
+    <hr>
     }
+    <h4>Specialties:</h4>
+    <ul>
+        @foreach (var specialty in ViewBag.SpecialtyList)
+        {
+            <li><a href="/specialty/@specialty.SpecialtyId">@specialty.Description</a></li>
+        }
+    </ul>
     <p>@Html.ActionLink("Back to Stylist List", "Index")</p>
 </div>
