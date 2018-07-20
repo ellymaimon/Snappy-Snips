@@ -15,8 +15,11 @@
         <br>
             @using (Html.BeginForm("delete", "specialties", new { id = specialty.SpecialtyId }, FormMethod.Post))
             {
-                <input class="btn btn-danger" type="submit" value="Delete"/>
+                <input class="btn btn-sm btn-danger" type="submit" value="Delete"/>
             }
         <hr>
     }
+    <form method="post" action="/specialties/delete">
+        <button class="btn btn-danger" type="submit">Delete All Specialties</button>
+    </form>
 </div>
