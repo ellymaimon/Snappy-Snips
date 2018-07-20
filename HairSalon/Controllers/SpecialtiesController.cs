@@ -11,5 +11,16 @@ namespace HairSalon.Controllers
 
         [HttpGet("/specialties")]
         public ActionResult Index() => View(db.Specialties.ToList());
+
+        [HttpGet("/specialties/create")]
+        public ActionResult Create() => View();
+
+        [HttpPost("/specialties/create")]
+        public ActionResult Create(Specialty specialty)
+        {
+            db.Specialties.Add(specialty);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
