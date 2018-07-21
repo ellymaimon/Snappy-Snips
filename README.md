@@ -27,6 +27,9 @@ Snappy Snipts Salon Management Tool is a .NET web application that allows a user
     * > CREATE TABLE StylistClients (StylistClientId serial PRIMARY KEY, ClientId INT, StylistID INT);
     * > CREATE TABLE StylistSpecialties (StyliesSpecialtyId serial PRIMARY KEY, SpecialtyId INT, StylistID INT);
 
+    dotnet ef migrations add Initial
+    dotnet ef database update
+
 ## Setup on OSX
 
 * Download and install .Net Core 1.1.4
@@ -35,16 +38,12 @@ Snappy Snipts Salon Management Tool is a .NET web application that allows a user
 * Clone the repo
 * Run `dotnet restore` from project directory and test directory to install packages
 * Run `dotnet build` from project directory and fix any build errors
+* Run `dotnet ef migrations add Initial` from project directory
+* Run `dotnet ef database update` from project directory to run database migration
+    * Alternately, import provided databases.
 * Run `dotnet test` from the test directory to run the testing suite
 * Run `dotnet run` to start the server
 * Alternatively, run `dotnet watch run` to start the server with the watcher tool
-
-## Contribution Requirements
-
-1. Clone the repo
-1. Make a new branch
-1. Commit and push your changes
-1. Create a PR
 
 ## Technologies Used
 
